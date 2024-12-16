@@ -1,42 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shubavu Shopping</title>
+  <title>Cart</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="container">
     <header>
       <img src="images/logo.png" alt="Logo" id="logo">
-      <h1>Shopping List</h1>
-      <div id="centered-logo">
-        <img src="images/logo.jpg" alt="Logo">
-      </div>
+      <h1>Shubavu Cart</h1>
     </header>
 
-    <div class="input-section">
-      <input type="text" id="itemInput" placeholder="Enter item">
-      <input type="number" id="priceInput" placeholder="Enter price" step="0.01">
-      <button id="addButton">Add Item</button>
-    </div>
+    <ul id="cartList"></ul>
 
-    <ul id="shoppingList"></ul>
-
-    <div class="controls">
-      <button id="clearButton">Clear List</button>
-      <button id="toggleMode">Switch to Dark Mode</button>
-    </div>
-
-    <!-- Link to Cart -->
-    <div class="cart-link">
-      <a href="cart.html">View Cart</a>
-    </div>
+    <button id="backButton">Back to List</button>
   </div>
 
-  <script src="app.js"></script>
+  <script>
+    const cartList = document.getElementById('cartList');
+    const backButton = document.getElementById('backButton');
+
+    // Load shoppingArray from localStorage
+    const shoppingArray = JSON.parse(localStorage.getItem('shoppingArray')) || [];
+
+    // Display items in the cart
+    shoppingArray.forEach((item, index) => {
+      if (item.inCart) {
+        const li = document.createElement('li');
+        li.textContent = `${item.item} - Ksh ${item.price}`;
+        cartList.appendChild(li);
+      }
+    });
+
+    // Back to list button
+    backButton.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+  </script>
 </body>
 </html>
